@@ -7,6 +7,11 @@ const model = new ChatMistralAI({
     apiKey: process.env.MISTRAL_API_KEY,
 });
 
-const response = await model.invoke("Write a code to check whether a number is prime or not in Python");
+// const response = await model.invoke("Write a code to check whether a number is prime or not in Python");
 
-console.log(response.text);
+const stream = await model.stream("Write about Mahatma Gandhi");
+
+
+for await(const chunk of stream){
+    process.stdout.write(chunk.text);
+}
